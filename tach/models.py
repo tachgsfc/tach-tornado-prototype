@@ -4,7 +4,7 @@ from tornado_sqlalchemy import SQLAlchemy
 
 from .core.models import AutoTableName
 
-db = SQLAlchemy('sqlite://')
+db = SQLAlchemy('sqlite:///tach.sqlite')
 
 
 class Circular(AutoTableName, db.Model):

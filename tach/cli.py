@@ -21,6 +21,20 @@ def run(host, port):
 
 
 @main.command()
+def createdb():
+    """Draw an entity relation diagram for the database."""
+    from .models import db
+    db.create_all()
+
+
+@main.command()
+def openapi():
+    """Draw an entity relation diagram for the database."""
+    from .api import spec
+    print(spec.to_yaml())
+
+
+@main.command()
 @click.option('-o', '--output', default='erd.png', help='Output filename')
 def erd(output):
     """Draw an entity relation diagram for the database."""
