@@ -23,7 +23,7 @@ class CircularHandler(SessionMixin, RequestHandler):
                     $ref: '#/definitions/Circular'
         """
         schema = CircularSchema()
-        return schema.dumps(self.session.query(models.Circular).query.get(number))
+        self.write(schema.dumps(self.session.query(models.Circular).get(number)))
 
 
 schemas = [CircularSchema]
