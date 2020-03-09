@@ -1,24 +1,19 @@
-from cleo import Application, Command
+import click
 
-__all__ = ('app',)
-
-
-class RunCommand(Command):
-    """Run the web application.
-
-    run
-        {--p|port=8000 : Bind to this port}
-    """
-
-    def handle(self):
-        port = int(self.option('port'))
-
-        import tornado.ioloop
-        from . import web
-
-        web.app.listen(port)
-        tornado.ioloop.IOLoop.current().start()
+__all__ = ('main',)
 
 
-app = Application(__name__.split('.')[0])
-app.add(RunCommand())
+@click.group()
+def main():
+    pass
+
+
+@main.command()
+@click.option('-p', '--port', default=8000, type=int, help='Bind to this port')
+def run(port):
+    """Run the web application."""
+    import tornado.ioloop
+    from . import web
+
+    web.app.listen(port)
+    tornado.ioloop.IOLoop.current().start()
