@@ -18,3 +18,14 @@ def run(host, port):
 
     web.app.listen(port, host)
     tornado.ioloop.IOLoop.current().start()
+
+
+@main.command()
+@click.option('-o', '--output', default='erd.png', help='Output filename')
+def erd(output):
+    """Draw an entity relation diagram for the database."""
+    from .models import db
+    import eralchemy
+    eralchemy.main.switch_input_class_to_method[db.Model.__name__] = \
+        eralchemy.main.declarative_to_intermediary
+    eralchemy.render_er(db.Model(), output)

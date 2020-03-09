@@ -13,8 +13,10 @@ marshmallow-sqlalchemy = "*"
 sqlalchemy-utils = "*"
 python = "^3.7"
 tornado = "*"
+tornado-sqlalchemy = "*"
 
 [tool.poetry.dev-dependencies]
+eralchemy = "*"
 ipython = "*"
 
 [tool.poetry.scripts]

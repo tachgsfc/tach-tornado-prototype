@@ -1,5 +1,6 @@
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
 from tornado.web import RequestHandler
+from tornado_sqlalchemy import SessionMixin
 
 from .core.api import spec
 from . import models
@@ -10,7 +11,7 @@ class CircularSchema(SQLAlchemyAutoSchema):
         model = models.Circular
 
 
-class CircularHandler(RequestHandler):
+class CircularHandler(SessionMixin, RequestHandler):
     def get(self, number):
         """Get a GCN Circular.
         ---
@@ -22,7 +23,7 @@ class CircularHandler(RequestHandler):
                     $ref: '#/definitions/Circular'
         """
         schema = CircularSchema()
-        return schema.dumps(models.Circular.query.get(number))
+        return schema.dumps(self.session.query(models.Circular).query.get(number))
 
 
 schemas = [CircularSchema]
